@@ -1,22 +1,22 @@
 'use strict';
 
-const scorpion = {
-  name: '',
+const player1 = {
+  name: 'Scorpion',
   hp: 100,
-  img: '',
+  img: 'http://reactmarathon-api.herokuapp.com/assets/scorpion.gif',
   weapon: ['knife', 'katana', 'arrow', 'sword'],
-  attack: function () {
-    console.log(`Fight ${scorpion} vs Fight ${subzero}`);
+  attack: function (name) {
+    console.log(name + ' ' + 'Fight...');
   },
 };
 
-const subzero = {
-  name: '',
-  hp: 100,
-  img: '',
+const player2 = {
+  name: 'Subzero',
+  hp: 85,
+  img: 'http://reactmarathon-api.herokuapp.com/assets/subzero.gif',
   weapon: ['katana', 'sword', 'magic', 'ice'],
-  attack: function () {
-    console.log(`Fight ${scorpion} – Fight ${subzero}`);
+  attack: function (name) {
+    console.log(name + ' ' + 'Fight...');
   },
 };
 
@@ -28,7 +28,7 @@ function createPlayer(player, playerName, health) {
 
   const progressbar = document.createElement('div');
   progressbar.classList.add('progressbar');
-  progressbar.appendChild(player);
+  progressbar.appendChild(player1);
 
   const name = document.createElement('div');
   name.classList.add('name');
@@ -45,6 +45,8 @@ function createPlayer(player, playerName, health) {
   const img = document.createElement('img');
   img.src = 'http://reactmarathon-api.herokuapp.com/assets/scorpion.gif';
   img.appendChild(character);
+
+  arenas.appendChild(player);
 }
 
-console.log(arenas);
+createPlayer('player1', 'Scorpion', 85);
