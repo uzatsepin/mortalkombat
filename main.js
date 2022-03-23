@@ -12,7 +12,7 @@ const player1 = {
 
 const player2 = {
   name: 'Subzero',
-  hp: 85,
+  hp: 55,
   img: 'http://reactmarathon-api.herokuapp.com/assets/subzero.gif',
   weapon: ['katana', 'sword', 'magic', 'ice'],
   attack: function (name) {
@@ -20,33 +20,32 @@ const player2 = {
   },
 };
 
-const arenas = document.querySelector('.arenas');
-
-function createPlayer(player, playerName, health) {
+function createPlayer(player, PlayerObj) {
+  const arenas = document.querySelector('.arenas');
   const player1 = document.createElement('div');
-  player1.classList.add(player);
-
   const progressbar = document.createElement('div');
-  progressbar.classList.add('progressbar');
-  progressbar.appendChild(player1);
-
   const name = document.createElement('div');
-  name.classList.add('name');
-  name.appendChild(progressbar);
-  name.textContent = playerName;
-
   const life = document.createElement('div');
-  life.classList.add('life');
-  life.style.width = health;
-  life.appendChild(progressbar);
-
   const character = document.createElement('div');
-  character.classList.add('character');
   const img = document.createElement('img');
-  img.src = 'http://reactmarathon-api.herokuapp.com/assets/scorpion.gif';
-  img.appendChild(character);
 
-  arenas.appendChild(player);
+  player1.classList.add(player);
+  progressbar.classList.add('progressbar');
+  name.classList.add('name');
+  life.classList.add('life');
+  character.classList.add('character');
+  img.src = PlayerObj.img;
+
+  arenas.appendChild(player1);
+  player1.appendChild(progressbar);
+  progressbar.appendChild(life);
+  progressbar.appendChild(name);
+  player1.appendChild(character);
+  character.appendChild(img);
+
+  name.innerText = PlayerObj.name;
+  life.style.width = PlayerObj.hp + '%';
 }
 
-createPlayer('player1', 'Scorpion', 85);
+createPlayer('player1', player1);
+createPlayer('player2', player2);
