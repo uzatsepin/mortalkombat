@@ -22,35 +22,21 @@ const player2 = {
 
 const arenas = document.querySelector('.arenas');
 
-function createElement(tagName) {
-  return document.createElement(tagName);
-}
-
-function createElementWithClass(tagName, className) {
-  // document.createElement(tagName);
-  // varName.classList.add(`'${varName}'`);
-  // varName.appendChild(arenas);
-
+function createElement(tagName, className) {
   let element = document.createElement(tagName);
   element.classList.add(`'${className}'`);
   return element;
 }
 
-createElementWithClass('div', 'test');
-
 function createPlayer(player, PlayerObj) {
   const player1 = createElement('div'),
-    progressbar = createElement('div'),
-    name = createElement('div'),
-    life = createElement('div'),
-    character = createElement('div'),
+    progressbar = createElement('div', progressbar),
+    name = createElement('div', name),
+    life = createElement('div', life),
+    character = createElement('div', character),
     img = createElement('img');
 
   player1.classList.add(player);
-  progressbar.classList.add('progressbar');
-  name.classList.add('name');
-  life.classList.add('life');
-  character.classList.add('character');
   img.src = PlayerObj.img;
 
   arenas.appendChild(player1);
