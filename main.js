@@ -20,14 +20,27 @@ const player2 = {
   },
 };
 
+const arenas = document.querySelector('.arenas');
+
+function createElementOnPage(tagName) {
+  return document.createElement(tagName);
+}
+
+function createElementWithClass(tagName, varName) {
+  document.createElement(tagName);
+  varName.classList.add(`'${varName}'`);
+  varName.appendChild(arenas);
+}
+
+let test = createElementWithClass('div', test);
+
 function createPlayer(player, PlayerObj) {
-  const arenas = document.querySelector('.arenas');
-  const player1 = document.createElement('div');
-  const progressbar = document.createElement('div');
-  const name = document.createElement('div');
-  const life = document.createElement('div');
-  const character = document.createElement('div');
-  const img = document.createElement('img');
+  const player1 = createElementOnPage('div'),
+    progressbar = createElementOnPage('div'),
+    name = createElementOnPage('div'),
+    life = createElementOnPage('div'),
+    character = createElementOnPage('div'),
+    img = createElementOnPage('img');
 
   player1.classList.add(player);
   progressbar.classList.add('progressbar');
