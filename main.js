@@ -22,25 +22,29 @@ const player2 = {
 
 const arenas = document.querySelector('.arenas');
 
-function createElementOnPage(tagName) {
+function createElement(tagName) {
   return document.createElement(tagName);
 }
 
-function createElementWithClass(tagName, varName) {
-  document.createElement(tagName);
-  varName.classList.add(`'${varName}'`);
-  varName.appendChild(arenas);
+function createElementWithClass(tagName, className) {
+  // document.createElement(tagName);
+  // varName.classList.add(`'${varName}'`);
+  // varName.appendChild(arenas);
+
+  let element = document.createElement(tagName);
+  element.classList.add(`'${className}'`);
+  return element;
 }
 
-let test = createElementWithClass('div', test);
+createElementWithClass('div', 'test');
 
 function createPlayer(player, PlayerObj) {
-  const player1 = createElementOnPage('div'),
-    progressbar = createElementOnPage('div'),
-    name = createElementOnPage('div'),
-    life = createElementOnPage('div'),
-    character = createElementOnPage('div'),
-    img = createElementOnPage('img');
+  const player1 = createElement('div'),
+    progressbar = createElement('div'),
+    name = createElement('div'),
+    life = createElement('div'),
+    character = createElement('div'),
+    img = createElement('img');
 
   player1.classList.add(player);
   progressbar.classList.add('progressbar');
