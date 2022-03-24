@@ -24,7 +24,9 @@ const arenas = document.querySelector('.arenas');
 
 function createElement(tagName, className) {
   let element = document.createElement(tagName);
-  element.classList.add(className);
+  if (className) {
+    element.classList.add(className);
+  }
   return element;
 }
 
@@ -39,7 +41,6 @@ function createPlayer(player, PlayerObj) {
   player1.classList.add(player);
   img.src = PlayerObj.img;
 
-  arenas.appendChild(player1);
   player1.appendChild(progressbar);
   progressbar.appendChild(life);
   progressbar.appendChild(name);
@@ -48,7 +49,9 @@ function createPlayer(player, PlayerObj) {
 
   name.innerText = PlayerObj.name;
   life.style.width = PlayerObj.hp + '%';
+
+  return player1;
 }
 
-createPlayer('player1', player1);
-createPlayer('player2', player2);
+arenas.appendChild(createPlayer('player1', player1));
+arenas.appendChild(createPlayer('player2', player2));
