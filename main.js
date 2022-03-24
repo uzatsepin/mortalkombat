@@ -24,16 +24,16 @@ const arenas = document.querySelector('.arenas');
 
 function createElement(tagName, className) {
   let element = document.createElement(tagName);
-  element.classList.add(`'${className}'`);
+  element.classList.add(className);
   return element;
 }
 
 function createPlayer(player, PlayerObj) {
-  const player1 = createElement('div'),
-    progressbar = createElement('div', progressbar),
-    name = createElement('div', name),
-    life = createElement('div', life),
-    character = createElement('div', character),
+  const player1 = createElement('div', 'player'),
+    progressbar = createElement('div', 'progressbar'),
+    name = createElement('div', 'name'),
+    life = createElement('div', 'life'),
+    character = createElement('div', 'character'),
     img = createElement('img');
 
   player1.classList.add(player);
