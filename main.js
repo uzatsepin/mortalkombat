@@ -25,21 +25,17 @@ const player2 = {
   },
 };
 
-function randomHP() {
-  return Math.ceil(Math.random() * 20);
-}
-
-function playerLoose(name) {
-  const loseTitle = createElement('div', 'loseTitle');
-  loseTitle.innerText = name + ' lose';
-  return loseTitle;
+function randomHP(max) {
+  return Math.ceil(Math.random() * max);
 }
 
 function playerWin(name) {
   const loseTitle = createElement('div', 'loseTitle');
-  loseTitle.innerText = name + ' Win';
+  loseTitle.innerText = name + ' win';
   return loseTitle;
 }
+
+
 
 function createElement(tagName, className) {
   let element = document.createElement(tagName);
@@ -50,12 +46,12 @@ function createElement(tagName, className) {
 }
 
 function createPlayer(playerObj) {
-  const player = createElement('div', 'player'+playerObj.player),
-        progressbar = createElement('div', 'progressbar'),
-        name = createElement('div', 'name'),
-        life = createElement('div', 'life'),
-        character = createElement('div', 'character'),
-        img = createElement('img');
+  const player = createElement('div', 'player' + playerObj.player),
+      progressbar = createElement('div', 'progressbar'),
+      name = createElement('div', 'name'),
+      life = createElement('div', 'life'),
+      character = createElement('div', 'character'),
+      img = createElement('img');
 
   img.src = playerObj.img;
 
@@ -73,14 +69,28 @@ function createPlayer(playerObj) {
 
 function changeHP(player) {
   const playerLife = document.querySelector('.player' + player.player + ' .life');
-  player.hp -= randomHP();
+  player.hp -= randomHP(20);
   playerLife.style.width = player.hp + '%';
 
-  if(player.hp < 0) {
+  if (player.hp < 0) {
     player.hp = 0;
-    arenas.appendChild(playerLoose(player.name));
+    if (player.hp === 0 ) {
+      randomBtn.disabled = true;
+      randomBtn.style.cursor = 'unset';
+    }
+  }
+
+  if (player1.hp === 0) {
+    arenas.appendChild(playerWin(player2.name))
+  } else if (player2.hp === 0) {
+    arenas.appendChild(playerWin(player1.name))
+  } else if (player1.hp && player2.hp === 0) {
+    let drow = createElement('div', 'loseTitle');
+    drow.innerText = 'Drow'
+    arenas.appendChild(drow);
   }
 }
+
 
 
 
@@ -89,5 +99,6 @@ randomBtn.addEventListener('click', function () {
   changeHP(player2);
 })
 
+arenas.appendChild(createPlayer(player1));
 arenas.appendChild(createPlayer(player2));
-arenas.appendChild(createPlayer(player2));
+
