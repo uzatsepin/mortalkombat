@@ -29,13 +29,11 @@ function randomHP(max) {
   return Math.ceil(Math.random() * max);
 }
 
-function playerWin(name) {
-  const loseTitle = createElement('div', 'loseTitle');
-  loseTitle.innerText = name + ' win';
-  return loseTitle;
+function playerWin(name = 'No one') {
+  const winTitle = createElement('div', 'winTitle');
+  winTitle.innerText = name + ' win';
+  return winTitle;
 }
-
-
 
 function createElement(tagName, className) {
   let element = document.createElement(tagName);
@@ -72,31 +70,33 @@ function changeHP(player) {
   player.hp -= randomHP(20);
   playerLife.style.width = player.hp + '%';
 
+
   if (player.hp < 0) {
     player.hp = 0;
-    if (player.hp === 0 ) {
-      randomBtn.disabled = true;
-      randomBtn.style.cursor = 'unset';
-    }
-  }
-
-  if (player1.hp === 0) {
-    arenas.appendChild(playerWin(player2.name))
-  } else if (player2.hp === 0) {
-    arenas.appendChild(playerWin(player1.name))
-  } else if (player1.hp && player2.hp === 0) {
-    let drow = createElement('div', 'loseTitle');
-    drow.innerText = 'Drow'
-    arenas.appendChild(drow);
+    playerLife.style.width = 0+'%';
   }
 }
-
-
-
 
 randomBtn.addEventListener('click', function () {
   changeHP(player1);
   changeHP(player2);
+  console.log(`${player1.name} has ${player1.hp}`)
+  console.log(`${player2.name} has ${player2.hp}`)
+
+ if(player1.hp === 0 || player2.hp === 0) {
+   randomBtn.style.cursor = 'unset';
+   randomBtn.disabled = true;
+ }
+  if (player1.hp === 0 && player1.hp < player2.hp) {
+    console.log('player 2 win')
+    arenas.appendChild(playerWin(player2.name))
+  } else if (player2.hp === 0 && player2.hp < player1.hp) {
+    arenas.appendChild(playerWin(player1.name))
+    console.log('player1 win')
+  } else if (player1.hp === 0 && player2.hp === 0) {
+    console.log('No one win');
+    arenas.appendChild(playerWin('No one'))
+  }
 })
 
 arenas.appendChild(createPlayer(player1));
