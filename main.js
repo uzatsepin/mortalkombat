@@ -29,9 +29,12 @@ function randomHP(max) {
   return Math.ceil(Math.random() * max);
 }
 
-function playerWin(name = 'No one') {
+function playerWin(name) {
   const winTitle = createElement('div', 'winTitle');
   winTitle.innerText = name + ' win';
+  if(name === undefined) {
+    winTitle.innerText = 'Draw (No one win)'
+  }
   return winTitle;
 }
 
@@ -80,22 +83,17 @@ function changeHP(player) {
 randomBtn.addEventListener('click', function () {
   changeHP(player1);
   changeHP(player2);
-  console.log(`${player1.name} has ${player1.hp}`)
-  console.log(`${player2.name} has ${player2.hp}`)
 
  if(player1.hp === 0 || player2.hp === 0) {
    randomBtn.style.cursor = 'unset';
    randomBtn.disabled = true;
  }
   if (player1.hp === 0 && player1.hp < player2.hp) {
-    console.log('player 2 win')
     arenas.appendChild(playerWin(player2.name))
   } else if (player2.hp === 0 && player2.hp < player1.hp) {
     arenas.appendChild(playerWin(player1.name))
-    console.log('player1 win')
   } else if (player1.hp === 0 && player2.hp === 0) {
-    console.log('No one win');
-    arenas.appendChild(playerWin('No one'))
+    arenas.appendChild(playerWin())
   }
 })
 
