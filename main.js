@@ -1,4 +1,4 @@
-'use strict';
+// 'use strict';
 
 const arenas = document.querySelector('.arenas');
 const randomBtn = document.querySelector('button');
@@ -6,6 +6,9 @@ const randomBtn = document.querySelector('button');
 const player1 = {
   player: 1,
   name: 'Scorpion',
+  changeHP,
+  elHP,
+  renderHP,
   hp: 100,
   img: 'http://reactmarathon-api.herokuapp.com/assets/scorpion.gif',
   weapon: ['knife', 'katana', 'arrow', 'sword'],
@@ -17,6 +20,9 @@ const player1 = {
 const player2 = {
   player: 2,
   name: 'Subzero',
+  changeHP,
+  elHP,
+  renderHP,
   hp: 100,
   img: 'http://reactmarathon-api.herokuapp.com/assets/subzero.gif',
   weapon: ['katana', 'sword', 'magic', 'ice'],
@@ -25,8 +31,12 @@ const player2 = {
   },
 };
 
-function randomHP(max) {
-  return Math.ceil(Math.random() * max);
+function getRandom(maxNum) {
+  return Math.ceil(Math.random() * maxNum);
+}
+
+function elHP() {
+  return document.querySelector('.player' + this.player+' .life')
 }
 
 function playerWin(name) {
@@ -68,25 +78,41 @@ function createPlayer(playerObj) {
   return player;
 }
 
-function changeHP(player) {
-  const playerLife = document.querySelector('.player' + player.player + ' .life');
-  player.hp -= randomHP(20);
-  playerLife.style.width = player.hp + '%';
+function createReloadButton() {
+  const reloadWrap = createElement('div', 'reloadWrap'),
+        button = createElement('button', 'button');
+        button.innerText = 'Restart';
+  button.addEventListener('click', () => {
+    window.location.reload();
+  })
+  reloadWrap.appendChild(button);
+  arenas.appendChild(reloadWrap);
 
+}
 
-  if (player.hp < 0) {
-    player.hp = 0;
-    playerLife.style.width = 0+'%';
+function changeHP(randomNumber) {
+  this.hp -= randomNumber;
+
+  if(this.hp <= 0) {
+    this.hp = 0;
   }
 }
 
+function renderHP() {
+  this.elHP().style.width = this.hp + '%'
+}
+
 randomBtn.addEventListener('click', function () {
-  changeHP(player1);
-  changeHP(player2);
+  player1.changeHP(getRandom(20));
+  player1.renderHP();
+
+  player2.changeHP(getRandom(20));
+  player2.renderHP();
 
  if(player1.hp === 0 || player2.hp === 0) {
    randomBtn.style.cursor = 'unset';
    randomBtn.disabled = true;
+   createReloadButton();
  }
   if (player1.hp === 0 && player1.hp < player2.hp) {
     arenas.appendChild(playerWin(player2.name))
