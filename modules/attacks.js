@@ -7,7 +7,7 @@ const HIT = {
 }
 const ATTACK = ['head', 'body', 'foot'];
 
-function getRandom(maxNum) {
+export const getRandom = (maxNum) => {
     return Math.ceil(Math.random() * maxNum);
 }
 
